@@ -7,6 +7,6 @@ services:
     build: .
     image: tests
     command:
-      - 'pytest tests/test_public_api.py -s -l -v --remote=selenoid -n auto --alluredir=allure-results --clean-alluredir --url=https://api.publicapis.org/'
+      - 'pytest tests/test_public_api.py -s -l -v -n auto --alluredir=allure-results --clean-alluredir --url=https://api.publicapis.org/'
     volumes:
       - .:/workdir
