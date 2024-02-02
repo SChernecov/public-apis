@@ -1,5 +1,4 @@
 import random
-import requests
 from client.api_client import ApiClient
 
 
