@@ -1,23 +1,6 @@
 version: '3'
 
-networks:
-  default:
-    external: true
-    name: ${NETWORK_NAME:-selenoid}
-
 services:
-
-  selenoid:
-    tty: true
-    image: aerokube/selenoid:latest-release
-    volumes:
-      - "./config:/etc/selenoid"
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "${NETWORK_NAME:-selenoid}" ]
-    healthcheck:
-      test: [ "CMD", "curl", "localhost:4444/ping" ]
-    ports:
-      - "4444:4444"
 
   tests:
     tty: true
@@ -25,7 +8,5 @@ services:
     image: tests
     command:
       - 'pytest tests/test_public_api.py -s -l -v --remote=selenoid -n auto --alluredir=allure-results --clean-alluredir --url=https://api.publicapis.org/'
-    depends_on:
-      - selenoid
     volumes:
       - .:/workdir
