@@ -1,8 +1,10 @@
 import pytest
+import allure
 from helpers.random_helper import random_punctuations, random_whitespaces, \
     random_int, random_bool
 
 
+@allure.feature("Test entries")
 class TestPublicApiEntries:
 
     def test_get_entries(self, client):
@@ -22,6 +24,9 @@ class TestPublicApiEntries:
 
         assert r.status_code == 200, "Wrong status code"
 
+
+@allure.feature("Test entries title")
+class TestPublicApiEntriesTitle:
     def test_random_entry_title(self, client):
         random_api = client.get_random_entries_api()
 
@@ -41,6 +46,9 @@ class TestPublicApiEntries:
 
         assert r.status_code == 400, "wrong status code"
 
+
+@allure.feature("Test entries description")
+class TestPublicApiEntriesDescription:
     def test_random_entry_description(self, client):
         random_description = client.get_random_entries_description()
 
@@ -57,6 +65,8 @@ class TestPublicApiEntries:
         r = client.get_random_entry_param(description=description)
         assert r.status_code == 400, "wrong status code"
 
+@allure.feature("Test entries cors")
+class TestPublicApiEntriesCors:
     @pytest.mark.parametrize("cors", ["yes", "no", "unknown"],
                              ids=["yes",
                                   "no",
@@ -79,6 +89,8 @@ class TestPublicApiEntries:
         r = client.get_random_entry_param(cors=cors)
         assert r.status_code == 400, "Wrong status code"
 
+@allure.feature("Test entries category")
+class TestPublicApiEntriesCategory:
     def test_random_entry_category(self, client):
         random_category = client.get_random_entries_category()
 
